@@ -12,7 +12,7 @@ function App() {
             <Row className="contentContainer">
               <Col>
                 <Routes >
-                  {/* <Route path="/" element={view} /> */}
+                  {/* <Route path="/" Component={view} /> */}
                   <Route Component={() => (<h2 style={{ height: "100vh" }}>Not Found</h2>)} />
                 </Routes >
               </Col>
