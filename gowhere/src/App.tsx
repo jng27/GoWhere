@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
-import { Container, Col, Row } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import view from './views/view'
 // require("dotenv").config();
 
