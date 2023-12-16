@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Container, Col, Row } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
+require("dotenv").config();
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <Router>
+          <Container fluid={true}>
+            <Row className="contentContainer">
+              <Col>
+                <Routes >
+                  {/* <Route path="/" element={view} /> */}
+                  <Route Component={() => (<h2 style={{ height: "100vh" }}>Not Found</h2>)} />
+                </Routes >
+              </Col>
+            </Row>
+          </Container>
+        </Router>
+      </div>
   );
 }
-
 export default App;
