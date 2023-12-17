@@ -1,12 +1,15 @@
-import React from 'react'
-import { Row, Col } from 'react-bootstrap'
-import Container from 'react-bootstrap/Container'
+import React, { useState, useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import DateForm from '../forms/form';
+import DatePicker from '../components/datepicker';
 
 function View() {
+    useEffect(() => {}, []);
+
     return (
-        <Container>
-            <Row>
-                <Col>
+        <Row>
+            <Col>
+                <Row>
                     <span
                         style={{
                             display: 'flex',
@@ -15,12 +18,52 @@ function View() {
                             fontWeight: 700,
                         }}
                     >
-                        GoWhere
+                        Simple Weather Forecast Application
                     </span>
-                </Col>
-            </Row>
-        </Container>
-    )
+                </Row>
+                <Row>
+                    <Col style={{ width: '60%' }}>
+                        <DateForm
+                            initialValues={{
+                                startDate: null,
+                                enddate: null,
+                            }}
+                            onSubmit={() => {}}
+                        />
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: '20px' }}>
+                    <Col style={{ width: '60%' }}>
+                        <DatePicker
+                            id='startdate'
+                            name='startdate'
+                            variant='outlined'
+                        />
+                    </Col>
+                    <Col style={{ width: '30%' }}>
+                        <Row>
+                            <Col>
+                                <DatePicker
+                                    id='startdate'
+                                    name='startdate'
+                                    variant='outlined'
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: '20px' }}>
+                    <Col style={{ width: '60%' }}>
+                        <DatePicker
+                            id='startdate'
+                            name='startdate'
+                            variant='outlined'
+                        />
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
+    );
 }
 
-export default View
+export default View;
