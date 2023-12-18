@@ -2,9 +2,11 @@ import React from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import style from '../style/style';
 import './form.css';
 import DatePicker from '../components/datepicker';
+import TimePicker from '../components/timepicker';
+import dayjs from 'dayjs';
+
 /*
 initialValues : Object?
 onSubmit : 
@@ -24,22 +26,23 @@ const validationSchema = Yup.object().shape({
         .typeError(errorMessagesForm.endddate)
         .required(errorMessagesForm.endddate),
 });
-function DateForm({ initialValues, onSubmit }): React.JSX.Element {
+function DateForm({ initialValues, handleChange }): React.JSX.Element {
     var formValues = {
         startdate: initialValues.startdate || null,
         enddate: initialValues.enddate || null,
+        time: initialValues.time || null,
     };
     return (
         <Formik
             validationSchema={validationSchema}
-            initialValues={initialValues}
-            onSubmit={onSubmit}
+            initialValues={formValues}
+            onSubmit={() => {}}
         >
             {({
                 values,
                 errors,
                 touched,
-                handleChange,
+                // handleChange, # We will be handling onChange through custom function instead of using formik built-in function
                 setFieldValue,
                 handleSubmit,
                 isSubmitting,
@@ -57,23 +60,14 @@ function DateForm({ initialValues, onSubmit }): React.JSX.Element {
                                     id='textfield'
                                     style={{ alignSelf: 'flex-start' }}
                                 >
-                                    Start Date
+                                    Date
                                     <span className='asterisks'>*</span>
                                 </label>
                                 <DatePicker
                                     id='startdate'
                                     name='startdate'
-                                    onChange={handleChange}
+                                    onChange={handleChange(values)}
                                     defaultValue={formValues.startdate}
-                                    variant='outlined'
-                                    inputProps={style.propsForTextFieldInput}
-                                    error={
-                                        (touched.startdate &&
-                                            errors.startdate) !== undefined
-                                    }
-                                    helperText={
-                                        touched.startdate && errors.startdate
-                                    }
                                 ></DatePicker>
                             </Form.Group>
                         </Col>
@@ -88,24 +82,15 @@ function DateForm({ initialValues, onSubmit }): React.JSX.Element {
                                     id='textfield'
                                     style={{ alignSelf: 'flex-start' }}
                                 >
-                                    End Date
+                                    Time
                                     <span className='asterisks'>*</span>
                                 </label>
-                                <DatePicker
-                                    id='enddate'
-                                    name='enddate'
-                                    onChange={handleChange}
-                                    defaultValue={formValues.enddate}
-                                    variant='outlined'
-                                    inputProps={style.propsForTextFieldInput}
-                                    error={
-                                        (touched.enddate && errors.enddate) !==
-                                        undefined
-                                    }
-                                    helperText={
-                                        touched.enddate && errors.enddate
-                                    }
-                                ></DatePicker>
+                                <TimePicker
+                                    id='time'
+                                    name='time'
+                                    onChange={handleChange(values)}
+                                    defaultValue={formValues.time}
+                                ></TimePicker>
                             </Form.Group>
                         </Col>
                     </Row>
