@@ -7,9 +7,21 @@ import log from 'src/common/log';
 export class WeatherController {
     constructor(private weatherService: WeatherService) {}
 
+    //Copy paste in postman/browser etc to test. http://localhost:4001/weather
+    @Get('weather')
+    GetTraffic() {
+        const api = process.env.API_WEATHER_ENDPOINT;
+        if (!api) {
+            log.error('traffic api endpoint not found in .env file');
+            throw new InternalServerException();
+        }
+
+        return this.weatherService.GetWeather(api);
+    }
+
     //Copy paste in postman/browser etc to test. http://localhost:4001/weather/2023-12-19T17:15:00
     @Get('weather/:datetime')
-    GetTraffic(@Param('datetime') datetime: string) {
+    GetTrafficByDatetime(@Param('datetime') datetime: string) {
         const api = process.env.API_WEATHER_ENDPOINT;
         if (!api) {
             log.error('traffic api endpoint not found in .env file');

@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
 });
 function DateForm({ initialValues, handleChange }): React.JSX.Element {
     var formValues = {
-        startdate: initialValues.startdate || null,
+        startdate: initialValues.startdate || dayjs(),
         enddate: initialValues.enddate || null,
         time: initialValues.time || null,
     };
@@ -83,7 +83,6 @@ function DateForm({ initialValues, handleChange }): React.JSX.Element {
                                     style={{ alignSelf: 'flex-start' }}
                                 >
                                     Time
-                                    <span className='asterisks'>*</span>
                                 </label>
                                 <TimePicker
                                     id='time'
