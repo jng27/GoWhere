@@ -28,6 +28,20 @@ export interface WeatherForecast {
     update_timestamp: string;
     timestamp: string;
     valid_period: object;
-    general: object;
+    general: {
+        forecast: string;
+        relative_humidity: {
+            low: number;
+            high: number;
+        };
+        temperature: {
+            low: number;
+            high: number;
+        };
+        wind: {
+            direction: string;
+            speed: { low: number; high: number };
+        };
+    };
     periods: [];
 }

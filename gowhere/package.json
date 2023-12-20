@@ -5,7 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.0",
+    "@mui/icons-material": "^5.15.1",
+    "@mui/material": "^5.15.1",
     "@mui/styled-engine-sc": "^6.0.0-alpha.8",
     "@mui/x-date-pickers": "^6.18.5",
     "@testing-library/jest-dom": "^5.17.0",
@@ -20,6 +21,7 @@
     "dayjs": "^1.11.10",
     "formik": "^2.4.5",
     "install": "^0.13.0",
+    "mui-image": "^1.0.7",
     "npm": "^10.2.5",
     "os": "^0.1.2",
     "os-browserify": "^0.3.0",

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import DateForm from '../forms/form';
-import DatePicker from '../components/datepicker';
 import dayjs from 'dayjs';
 import Traffic from '../models/traffic';
 import Weather from '../models/weather';
@@ -12,6 +11,8 @@ import {
     WeatherForecast,
 } from './types';
 import AutoComplete from '../components/traffic/autocomplete';
+import Card from '../components/weather/card';
+import Image from 'mui-image';
 
 const trafficApi = new Traffic();
 const weatherApi = new Weather();
@@ -117,16 +118,22 @@ function View() {
                             options={traffic}
                             handleChange={handleAutoComplete}
                         />
-                        <DatePicker
-                            id='startdate'
-                            name='startdate'
-                            style={{ marginTop: '50px' }}
-                        />
+                        <div style={{ marginTop: '20px' }}>
+                            {camera && camera.image && (
+                                <Image src={camera.image} />
+                            )}
+                        </div>
                     </Col>
                     <Col style={{ width: '30%' }}>
                         <Row>
                             <Col>
-                                <DatePicker id='startdate' name='startdate' />
+                                {weather && weather.general && (
+                                    <Card
+                                        elevation={3}
+                                        style={{ marginTop: 0 }}
+                                        weather={weather}
+                                    />
+                                )}
                             </Col>
                         </Row>
                     </Col>

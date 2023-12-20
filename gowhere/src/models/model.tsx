@@ -13,7 +13,6 @@ class Model {
                 return;
             })
             .catch(function (error) {
-                console.log(error);
                 callback(
                     null,
                     'Opps there is something wrong with our servers, please try again later',
@@ -35,7 +34,6 @@ class Model {
                 }
             })
             .catch(function (error) {
-                console.log(error);
                 callback(
                     null,
                     'Opps there is something wrong with our servers, please try again later',

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Camera } from '../../views/types';
@@ -34,7 +33,6 @@ export default function AutoComplete(props: props) {
                         JSON.stringify(value.location) ===
                         JSON.stringify(newValue),
                 );
-                console.log(selected);
                 if (selected) {
                     handleChange(selected[1]);
                 }
