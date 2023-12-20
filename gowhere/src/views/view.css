@@ -1,0 +1,33 @@
+#custom-traffic-row{
+    width: 60%
+}
+
+#custom-weather-row{
+    width: 30%
+}
+
+#custom-weather-col{
+    align-items: baseline
+}
+
+@media screen and (max-width: 900px){
+    #custom-traffic-row{
+        width: 100% !important;
+    }
+}
+
+  @media screen and (max-width: 800px){
+    #custom-weather-row{
+        width: 100% !important;
+    }
+    #custom-weather-col{
+        align-items: center;
+        margin-top: 20px;
+    }
+    /* #custom-weather-col .MuiBox-root .css-1r8szps{
+        margin: auto 20px auto 0px;
+    } */
+    #custom-wrapper{
+        flex-direction: column;
+    }
+}

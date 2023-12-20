@@ -48,7 +48,7 @@ function DateForm({ initialValues, handleChange }): React.JSX.Element {
                 isSubmitting,
             }) => (
                 <Form onSubmit={handleSubmit}>
-                    <Row>
+                    <Row id='custom-form-row'>
                         <Col className='right-padding'>
                             <Form.Group
                                 style={{

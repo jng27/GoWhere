@@ -13,6 +13,7 @@ import {
 import AutoComplete from '../components/traffic/autocomplete';
 import Card from '../components/weather/card';
 import Image from 'mui-image';
+import './view.css';
 
 const trafficApi = new Traffic();
 const weatherApi = new Weather();
@@ -102,7 +103,7 @@ function View() {
                     </span>
                 </Row>
                 <Row>
-                    <Col style={{ width: '60%' }}>
+                    <Col id='custom-traffic-row'>
                         <DateForm
                             initialValues={{
                                 startDate: null,
@@ -112,8 +113,12 @@ function View() {
                         />
                     </Col>
                 </Row>
-                <Row style={{ marginTop: '20px' }}>
-                    <Col style={{ width: '60%' }} className='right-padding'>
+                <Row style={{ marginTop: '20px' }} id='custom-wrapper'>
+                    <Col
+                        custom-traffic-row
+                        className='right-padding'
+                        id='custom-traffic-row'
+                    >
                         <AutoComplete
                             options={traffic}
                             handleChange={handleAutoComplete}
@@ -124,9 +129,9 @@ function View() {
                             )}
                         </div>
                     </Col>
-                    <Col style={{ width: '30%' }}>
+                    <Col id='custom-weather-row'>
                         <Row>
-                            <Col>
+                            <Col id='custom-weather-col'>
                                 {weather && weather.general && (
                                     <Card
                                         elevation={3}

@@ -25,6 +25,7 @@ export default function Card(props: props) {
                     m: 1,
                     width: 250,
                     height: 250,
+                    margin: 'auto',
                 },
             }}
         >
