@@ -14,7 +14,7 @@ function transformString(data: any) {
 }
 
 export default function AutoComplete(props: props) {
-    const [defaultValue, setDefaultValue] = useState<Camera>();
+    const [defaultValue, setDefaultValue] = useState<Camera | null>(null);
     const [filteredCameras, setFilteredCameras] = useState();
     const [cameras, setCameras] = useState<Array<Camera>>();
     const options = props.options;

@@ -2,26 +2,52 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { InternalServerException } from 'src/common/httpError';
 import log from 'src/common/log';
+import { WeatherApiResponse } from './types';
+import * as NodeCache from 'node-cache';
+
+const CACHETTL = parseInt(process.env.CACHETTL) || 1800;
+const CACHEKEY = process.env.CACHE_TRAFFIC_KEY || 'weather';
+const nodeCache = new NodeCache({
+    stdTTL: CACHETTL,
+    checkperiod: CACHETTL - 2,
+    deleteOnExpire: true,
+});
 
 @Controller()
 export class WeatherController {
     constructor(private weatherService: WeatherService) {}
 
-    //Copy paste in postman/browser etc to test. http://localhost:4001/weather
+    //http://localhost:4001/weather
     @Get('weather')
-    GetTraffic() {
+    async GetTraffic(): Promise<WeatherApiResponse> {
+        if (nodeCache.has(CACHEKEY)) return nodeCache.get(CACHEKEY);
+
         const api = process.env.API_WEATHER_ENDPOINT;
         if (!api) {
             log.error('traffic api endpoint not found in .env file');
             throw new InternalServerException();
         }
 
-        return this.weatherService.GetWeather(api);
+        try {
+            const weather = await this.weatherService.GetWeather(api);
+            nodeCache.set(CACHEKEY, weather);
+            return weather;
+        } catch (err) {
+            log.error('axios faced an error while retrieving data');
+            log.error(JSON.stringify(err));
+            if (nodeCache.has(CACHEKEY)) return nodeCache.get(CACHEKEY);
+            throw new InternalServerException();
+        }
     }
 
-    //Copy paste in postman/browser etc to test. http://localhost:4001/weather/2023-12-19T17:15:00
+    //http://localhost:4001/weather/2023-12-19T17:15:00
     @Get('weather/:datetime')
-    GetTrafficByDatetime(@Param('datetime') datetime: string) {
+    async GetTrafficByDatetime(
+        @Param('datetime') datetime: string,
+    ): Promise<WeatherApiResponse> {
+        const cacheKey = CACHEKEY + datetime;
+        if (nodeCache.has(cacheKey)) return nodeCache.get(cacheKey);
+
         const api = process.env.API_WEATHER_ENDPOINT;
         if (!api) {
             log.error('traffic api endpoint not found in .env file');
@@ -31,7 +57,17 @@ export class WeatherController {
         const params = new URLSearchParams({
             date_time: datetime,
         });
-        const url = api + '?' + params;
-        return this.weatherService.GetWeather(url);
+
+        try {
+            const url = api + '?' + params;
+            const weather = await this.weatherService.GetWeather(url);
+            nodeCache.set(cacheKey, weather);
+            return weather;
+        } catch (err) {
+            log.error('axios faced an error while retrieving data');
+            log.error(JSON.stringify(err));
+            if (nodeCache.has(cacheKey)) return nodeCache.get(cacheKey);
+            throw new InternalServerException();
+        }
     }
 }
