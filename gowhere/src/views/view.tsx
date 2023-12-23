@@ -32,9 +32,9 @@ function View() {
                 formatted,
                 (result: TrafficApiResponse, err) => {
                     if (result && result.items && !err) {
-                        const items = result.items[0];
-                        if (items instanceof Array && Array.length > 0) {
-                            const cameras = items.cameras;
+                        const items = result.items;
+                        if (items instanceof Array && items.length > 0) {
+                            const cameras = items[0].cameras;
                             setTraffic(cameras);
                         }
                     }
@@ -51,8 +51,11 @@ function View() {
         const getTraffic = async () => {
             await trafficApi.GetTraffic((result: TrafficApiResponse, err) => {
                 if (result && !err) {
-                    const cameras = result.items[0].cameras;
-                    setTraffic(cameras);
+                    const items = result.items;
+                    if (items instanceof Array && items.length > 0) {
+                        const cameras = items[0].cameras;
+                        setTraffic(cameras);
+                    }
                 }
             });
         };
@@ -60,14 +63,15 @@ function View() {
     }, []);
 
     useEffect(() => {
-        console.log(traffic);
+        // console.log(traffic);
     }, [traffic]);
 
     useEffect(() => {
-        console.log(weather);
+        // console.log(weather);
     }, [weather]);
 
     useEffect(() => {
+        // console.log(camera);
         if (camera) {
             //get the timestamp from selected traffic and query weather
             const getWeather = async () => {
@@ -76,7 +80,7 @@ function View() {
                     (result: WeatherApiResponse, err) => {
                         if (result && result.items && !err) {
                             const items = result.items;
-                            if (items instanceof Array && Array.length > 0) {
+                            if (items instanceof Array && items.length > 0) {
                                 setWeather(items[0]);
                             }
                         }
@@ -114,11 +118,7 @@ function View() {
                     </Col>
                 </Row>
                 <Row style={{ marginTop: '20px' }} id='custom-wrapper'>
-                    <Col
-                        custom-traffic-row
-                        className='right-padding'
-                        id='custom-traffic-row'
-                    >
+                    <Col className='right-padding' id='custom-traffic-row'>
                         <AutoComplete
                             options={traffic}
                             handleChange={handleAutoComplete}
