@@ -70,23 +70,4 @@ export class TrafficController {
             throw new InternalServerException();
         }
     }
-
-    // async HandleCameraData(cameras: Array<Camera>) {
-    //     const tempArray = [];
-    //     var queries = cameras.length;
-    //     cameras.forEach((camera) => {
-    //         const latitude = camera.location.latitude;
-    //         const longitude = camera.location.longitude;
-    //         const config = {
-    //             latitude: latitude,
-    //             longitude: longitude,
-    //         };
-    //         if (queries === 90) {
-    //             queries -= 1;
-    //         }
-
-    //         queries -= 1;
-    //         if (queries === 0) return tempArray;
-    //     });
-    // }
 }
