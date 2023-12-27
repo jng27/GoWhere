@@ -8,7 +8,7 @@ type props = {
     handleChange: Function;
 };
 
-function transformString(data: any) {
+export function transformString(data: any) {
     const stringified = JSON.stringify(data);
     return stringified.replace(/[\{\}\"']+/g, '');
 }

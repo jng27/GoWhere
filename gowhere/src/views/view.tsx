@@ -10,18 +10,23 @@ import {
     Camera,
     WeatherForecast,
 } from './types';
-import AutoComplete from '../components/traffic/autocomplete';
+import AutoComplete, {
+    transformString,
+} from '../components/traffic/autocomplete';
 import Card from '../components/weather/card';
 import Image from 'mui-image';
 import './view.css';
+import History from '../models/history';
 
 const trafficApi = new Traffic();
 const weatherApi = new Weather();
+const historyApi = new History();
 
 function View() {
     const [traffic, setTraffic] = useState([]);
     const [camera, setCamera] = useState<Camera>();
     const [weather, setWeather] = useState<WeatherForecast>();
+    const [datetime, setDateTime] = useState<number>();
 
     const handleDatePicker = async (values) => {
         const parsed = dayjs(values);
@@ -36,6 +41,7 @@ function View() {
                         if (items instanceof Array && items.length > 0) {
                             const cameras = items[0].cameras;
                             setTraffic(cameras);
+                            setDateTime(parsed.valueOf());
                         }
                     }
                 },
@@ -45,6 +51,14 @@ function View() {
 
     const handleAutoComplete = async (value: Camera) => {
         setCamera(value);
+        const dt = datetime || dayjs().valueOf();
+        historyApi.PostQuery(
+            dt,
+            transformString(value.location),
+            (res, err) => {
+                console.log(res, err);
+            },
+        );
     };
 
     useEffect(() => {
