@@ -35,3 +35,10 @@ You will also see any lint errors in the console.<br />
 <br />
 Runs backend server to allow react frontend to function and facilitate connection to SQL on PORT 4001<br />
 DB schema (history table) can be found in misc folder.<br />
+
+#### Content that was left out deliberately
+
+<br />
+Was not able to find a open source geocoder that reverses the lat/long into accurate street names
+<br />
+Will be happy to run through my intended logic to handle this during interview
